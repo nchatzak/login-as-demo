@@ -3,10 +3,7 @@ package com.example.web.controller;
 import com.example.domain.entity.User;
 import com.example.security.service.CustomUserDetailsService;
 import com.example.service.UserService;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,12 +24,10 @@ public class AdminController {
 
     private final UserService userService;
     private final CustomUserDetailsService customUserDetailsService;
-    private final AuthenticationManager authenticationManager;
 
-    public AdminController(UserService userService, CustomUserDetailsService customUserDetailsService, AuthenticationManager authenticationManager) {
+    public AdminController(UserService userService, CustomUserDetailsService customUserDetailsService) {
         this.userService = userService;
         this.customUserDetailsService = customUserDetailsService;
-        this.authenticationManager = authenticationManager;
     }
 
     @GetMapping
@@ -43,7 +38,7 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping("loginAs")
+    @PostMapping("/loginAs")
     public String loginAsMod(@RequestParam("modId") final String modId,
                              final HttpServletRequest request) {
 
@@ -53,12 +48,8 @@ public class AdminController {
         final UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getEmail());
         final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails, user.getPassword(), userDetails.getAuthorities());
-        final Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-        final SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authenticate);
-
-        request.getSession(true).setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
         return "redirect:/mod/";
     }
