@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Index Page</title>
+</head>
+<body>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    This content is only shown to administrators.
+    <br/>
+    <a data-th-href="@{/admin}">To admin</a>
+</div>
+<div sec:authorize="hasRole('ROLE_MODERATOR')">
+    This content is only shown to moderators.
+    <br/>
+    <a data-th-href="@{/mod}">To moderator</a>
+</div>
+
+</body>
+</html>

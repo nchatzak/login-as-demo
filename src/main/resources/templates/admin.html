@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin page</title>
+</head>
+<body>
+
+<p>Admin Page!</p>
+
+<div data-th-each="moderator : ${moderators}">
+    <form data-th-action="@{/admin/loginAs}" method="post">
+        <p data-th-text="${moderator.email}"></p>
+        <input type="hidden" name="modId" data-th-value="${moderator.id}"/>
+        <input type="submit" value="Login as"/>
+    </form>
+</div>
+
+</body>
+</html>
