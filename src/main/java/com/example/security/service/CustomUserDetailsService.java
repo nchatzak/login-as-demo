@@ -1,4 +1,4 @@
-package com.example.security.sevice;
+package com.example.security.service;
 
 import com.example.domain.entity.User;
 import com.example.domain.repository.UserRepository;

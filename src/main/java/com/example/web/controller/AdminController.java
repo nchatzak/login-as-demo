@@ -1,7 +1,7 @@
 package com.example.web.controller;
 
 import com.example.domain.entity.User;
-import com.example.security.sevice.CustomUserDetailsService;
+import com.example.security.service.CustomUserDetailsService;
 import com.example.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

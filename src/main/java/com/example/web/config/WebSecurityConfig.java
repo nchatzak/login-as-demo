@@ -36,8 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .expressionHandler(securityExpressionHandler())
 
-                .antMatchers("/h2-console/**").permitAll()
-
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 
                 .antMatchers("/mod/**").hasAuthority("ROLE_MODERATOR")
